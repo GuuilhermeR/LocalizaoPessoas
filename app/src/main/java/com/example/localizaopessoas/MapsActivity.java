@@ -59,17 +59,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             InfoJSON parseJson = new InfoJSON();
             parseJson.parse(s);
             contatos = parseJson.getContatos();
-
-            mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-
-            // Add a marker in Sydney and move the camera
-            for (Contato teste : contatos){
-            LatLng locations = new LatLng(teste.getLatitude(),teste.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(locations).title("Nome: " +teste.getNome() +"\n"
-                    + "E-mail: " + teste.getEmail())
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locations, 10));
-            }
         }
 
         private String downloadJson(String urlString) {
@@ -116,5 +105,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         down.execute(CONTATOS);
 
         mMap = googleMap;
+
+        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+
+        // Add a marker in Sydney and move the camera
+        for (Contato teste : contatos){
+            LatLng locations = new LatLng(teste.getLatitude(),teste.getLongitude());
+            mMap.addMarker(new MarkerOptions().position(locations).title("Nome: " +teste.getNome() +"\n"
+                    + "E-mail: " + teste.getEmail())
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locations, 10));
+        }
+
+        contatos.setOnmarkerclicklistener
+
     }
 }
