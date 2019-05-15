@@ -27,7 +27,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private static final String CONTATOS = "http://www.mocky.io/v2/5cdb4544300000640068cc7b";
     private List<Contato> contatos;
-    private GoogleMap vGlobal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,14 +60,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             parseJson.parse(s);
             contatos = parseJson.getContatos();
 
-            mMap = vGlobal;
             mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
             // Add a marker in Sydney and move the camera
-            LatLng locations = new LatLng(0, 0);
-            mMap.addMarker(new MarkerOptions().position(locations).title("Contatos")
+            for (Contato teste : contatos){
+            LatLng locations = new LatLng(teste.getLatitude(),teste.getLongitude());
+            mMap.addMarker(new MarkerOptions().position(locations).title("Nome: " +teste.getNome() +"\n"
+                    + "E-mail: " + teste.getEmail())
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locations, 10));
+            }
         }
 
         private String downloadJson(String urlString) {
@@ -114,7 +115,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         DownloadDeDados down = new DownloadDeDados();
         down.execute(CONTATOS);
 
-        vGlobal = googleMap;
-
+        mMap = googleMap;
     }
 }

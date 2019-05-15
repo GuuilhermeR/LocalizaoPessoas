@@ -1,11 +1,18 @@
 package com.example.localizaopessoas;
 
 public class Contato {
-
     private String nome;
     private String email;
     private Double latitude;
     private Double longitude;
+
+    public Contato(String nome, String email, Double latitude, Double longitude) {
+        this.nome = nome;
+        this.email = email;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
 
     public String getNome() {
         return nome;

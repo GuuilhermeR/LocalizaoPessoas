@@ -12,6 +12,7 @@ import java.util.List;
 public class InfoJSON {
     private static final String TAG = "InfoJSON";
     private List<Contato> contatos;
+    private JSONArray jsonArray;
 
     public InfoJSON() {
         contatos = new ArrayList<>();
@@ -24,17 +25,17 @@ public class InfoJSON {
     public boolean parse(String jsonString) {
         try {
             JSONObject json = new JSONObject(jsonString);
-            JSONArray contatos = json.getJSONArray("contato");
+            jsonArray = json.getJSONArray("");
 
-            for (int i = 0; i < contatos.length(); i++) {
-                JSONObject contato = contatos.getJSONObject(i);
-                Contato p = new Contato();
-                p.setNome(contato.getString("nome"));
-                p.setEmail(contato.getString("email"));
-                p.setLatitude(contato.getDouble("latitude"));
-                p.setLongitude(contato.getDouble("longitude"));
-                this.contatos.add(p);
-            }
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject contato = jsonArray.getJSONObject(i);
+                Contato c = new Contato(
+                contato.getString("nome"),
+                contato.getString("email"),
+                contato.getDouble("latitude"),
+                contato.getDouble("longitude"));
+                contatos.add(c);
+                }
             return true;
         } catch (JSONException e) {
             Log.e(TAG, "parse: erro ao fazer parse do JSON: " + e.getMessage());
