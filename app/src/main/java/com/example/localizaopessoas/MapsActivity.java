@@ -11,6 +11,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.BufferedReader;
@@ -108,16 +109,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
-        // Add a marker in Sydney and move the camera
-        for (Contato teste : contatos){
+           for (Contato teste : contatos){
             LatLng locations = new LatLng(teste.getLatitude(),teste.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(locations).title("Nome: " +teste.getNome() +"\n"
-                    + "E-mail: " + teste.getEmail())
+            mMap.addMarker(new MarkerOptions().position(locations).title("Localização")
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locations, 10));
         }
 
-        contatos.setOnmarkerclicklistener
+        googleMap.setOnMarkerClickListener();
+
 
     }
+
 }
